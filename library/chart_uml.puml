@@ -1,0 +1,65 @@
+@startuml
+
+class LineChartView
+
+class AbstractChartView
+
+abstract AbstractChartView <|-- LineChartView
+
+class View
+
+View <|-- AbstractChartView
+
+interface Chart
+
+Chart <|.. AbstractChartView
+
+class LineChartData
+
+LineChartData --o LineChartView
+
+abstract class AbstractChartData
+
+AbstractChartData <|-- LineChartData
+
+interface ChartData
+
+ChartData <|.. AbstractChartData
+
+class Axis
+
+Axis --o AbstractChartData
+
+class SimpleAxisValueFormatter
+
+SimpleAxisValueFormatter --o Axis
+
+interface AxisValueFormatter
+
+AxisValueFormatter <|.. SimpleAxisValueFormatter
+
+class ValueFormatterHelper
+
+ValueFormatterHelper --o SimpleAxisValueFormatter
+
+class ChartComputer
+
+ChartComputer --o AbstractChartView
+
+class Viewport
+
+Viewport --o ChartComputer
+
+class Rect
+
+Rect --o ChartComputer
+
+class AxesRenderer
+
+AxesRenderer --o AbstractChartView
+
+class AxisAutoValues
+
+AxisAutoValues --o AxesRenderer
+
+@enduml
