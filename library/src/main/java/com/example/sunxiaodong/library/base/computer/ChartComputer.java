@@ -10,10 +10,30 @@ import com.example.sunxiaodong.library.base.model.Viewport;
  */
 public class ChartComputer {
 
+    protected int chartWidth;//图表宽度，px，屏幕显示大小
+    protected int chartHeight;//图表高度
+    protected Rect maxContentRect = new Rect();//最大内容矩形
     protected Rect contentRectMinusAllMargins = new Rect();//减去所有边距的内容矩形
     protected Rect contentRectMinusAxesMargins = new Rect();//减去坐标轴边距的内容矩形
 
     protected Viewport currentViewport = new Viewport();//当前视窗
+
+    /**
+     * 设置内容矩形大小
+     * @param width
+     * @param height
+     * @param paddingLeft
+     * @param paddingTop
+     * @param paddingRight
+     * @param paddingBottom
+     */
+    public void setContentRect(int width, int height, int paddingLeft, int paddingTop, int paddingRight, int paddingBottom) {
+        chartWidth = width;
+        chartHeight = height;
+        maxContentRect.set(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom);
+        contentRectMinusAxesMargins.set(maxContentRect);
+        contentRectMinusAllMargins.set(maxContentRect);
+    }
 
     /**
      * 生成去除“轴边距”的内容矩形

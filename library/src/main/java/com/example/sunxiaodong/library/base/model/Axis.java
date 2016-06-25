@@ -96,32 +96,36 @@ public class Axis {
         return hasGridLines;
     }
 
-    public void setHasGridLines(boolean hasGridLines) {
+    public Axis setHasGridLines(boolean hasGridLines) {
         this.hasGridLines = hasGridLines;
+        return this;
     }
 
     public boolean isHasAxisLine() {
         return hasAxisLine;
     }
 
-    public void setHasAxisLine(boolean hasAxisLine) {
+    public Axis setHasAxisLine(boolean hasAxisLine) {
         this.hasAxisLine = hasAxisLine;
+        return this;
     }
 
     public List<AxisLabel> getAxisLabels() {
         return axisLabels;
     }
 
-    public void setAxisLabels(List<AxisLabel> axisLabels) {
+    public Axis setAxisLabels(List<AxisLabel> axisLabels) {
         this.axisLabels = axisLabels;
+        return this;
     }
 
     public AxisValueFormatter getLabelFormatter() {
         return labelFormatter;
     }
 
-    public void setLabelFormatter(AxisValueFormatter labelFormatter) {
+    public Axis setLabelFormatter(AxisValueFormatter labelFormatter) {
         this.labelFormatter = labelFormatter;
+        return this;
     }
 
 }

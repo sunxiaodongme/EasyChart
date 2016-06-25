@@ -85,6 +85,10 @@ public class AxesRenderer {
         }
     }
 
+    public void resetRenderer() {
+        chartComputer = chart.getChartComputer();
+    }
+
     /**
      * 图表尺寸改变
      */
