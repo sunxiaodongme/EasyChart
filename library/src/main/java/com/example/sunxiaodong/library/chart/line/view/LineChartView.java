@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import com.example.sunxiaodong.library.base.model.ChartData;
 import com.example.sunxiaodong.library.base.view.AbstractChartView;
 import com.example.sunxiaodong.library.chart.line.model.LineChartData;
+import com.example.sunxiaodong.library.chart.line.renderer.LineChartRenderer;
 
 /**
  * 线状图
@@ -31,7 +32,7 @@ public class LineChartView extends AbstractChartView {
     }
 
     private void init(Context context) {
-
+        setChartRenderer(new LineChartRenderer());
     }
 
     @Override

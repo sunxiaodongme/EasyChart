@@ -15,6 +15,7 @@ import com.example.sunxiaodong.library.base.util.ScreenUtil;
 import com.example.sunxiaodong.library.base.view.Chart;
 
 /**
+ * 坐标轴渲染器
  * Created by sunxiaodong on 16/6/24.
  */
 public class AxesRenderer {

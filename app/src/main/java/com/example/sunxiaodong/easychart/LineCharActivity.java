@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.sunxiaodong.library.base.model.Axis;
+import com.example.sunxiaodong.library.base.model.Viewport;
 import com.example.sunxiaodong.library.chart.line.model.LineChartData;
 import com.example.sunxiaodong.library.chart.line.view.LineChartView;
 
@@ -26,7 +27,7 @@ public class LineCharActivity extends AppCompatActivity {
     private void initView() {
         lineChartView = (LineChartView) findViewById(R.id.line_chart_view);
         initData();
-//        resetViewport();
+        resetViewport();
     }
 
     private void initData() {
@@ -40,15 +41,15 @@ public class LineCharActivity extends AppCompatActivity {
         lineChartView.setLineChartData(lineChartData);
     }
 
-//    private void resetViewport() {
-//        //设置窗口高度范围（0 - 100），宽度（0 - 12）
-//        Viewport viewport = new Viewport(lineChartView.getMaxViewport());
-//        viewport.bottom = 0;
-//        viewport.top = 100;
-//        viewport.left = 0;
-//        viewport.right = 12;
-//        lineChartView.setMaxViewport(viewport);
-//        lineChartView.setCurrentViewport(viewport);
-//    }
+    private void resetViewport() {
+        //设置窗口高度范围（0 - 100），宽度（0 - 12）
+        Viewport viewport = new Viewport(lineChartView.getMaxViewport());
+        viewport.bottom = 0;
+        viewport.top = 100;
+        viewport.left = 0;
+        viewport.right = 12;
+        lineChartView.setMaxViewport(viewport);
+        lineChartView.setCurrentViewport(viewport);
+    }
 
 }

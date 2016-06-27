@@ -2,6 +2,8 @@ package com.example.sunxiaodong.library.base.view;
 
 import com.example.sunxiaodong.library.base.computer.ChartComputer;
 import com.example.sunxiaodong.library.base.model.ChartData;
+import com.example.sunxiaodong.library.base.model.Viewport;
+import com.example.sunxiaodong.library.base.renderer.ChartRenderer;
 
 /**
  * 图表基础操作接口
@@ -20,12 +22,15 @@ public interface Chart {
 
     /*------------------------------视窗----------------------------------start*/
 
-//    Viewport getMaxViewport();//获取最大视窗
-//    void setMaxViewport(Viewport maxViewport);//设置最大视窗
-//
-//    Viewport getCurrentViewport();//获取当前视窗
-//    void setCurrentViewport(Viewport viewport);//设置当前视窗
+    Viewport getMaxViewport();//获取最大视窗
+    void setMaxViewport(Viewport maxViewport);//设置最大视窗
+
+    Viewport getCurrentViewport();//获取当前视窗
+    void setCurrentViewport(Viewport viewport);//设置当前视窗
 
     /*------------------------------视窗----------------------------------end*/
+
+    ChartRenderer getChartRenderer();//获取图表渲染器
+    void setChartRenderer(ChartRenderer renderer);//设置图表渲染器
 
 }

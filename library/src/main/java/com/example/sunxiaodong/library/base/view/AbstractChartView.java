@@ -8,7 +8,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.sunxiaodong.library.base.computer.ChartComputer;
+import com.example.sunxiaodong.library.base.model.Viewport;
 import com.example.sunxiaodong.library.base.renderer.AxesRenderer;
+import com.example.sunxiaodong.library.base.renderer.ChartRenderer;
 
 /**
  * 抽象的图表视图，用于所有图形的基础绘制
@@ -18,6 +20,7 @@ public abstract class AbstractChartView extends View implements Chart {
 
     protected ChartComputer chartComputer;
     protected AxesRenderer axesRenderer;
+    protected ChartRenderer chartRenderer;
 
     public AbstractChartView(Context context) {
         super(context);
@@ -45,17 +48,32 @@ public abstract class AbstractChartView extends View implements Chart {
     }
 
     @Override
+    public ChartRenderer getChartRenderer() {
+        return chartRenderer;
+    }
+
+    @Override
+    public void setChartRenderer(ChartRenderer renderer) {
+        chartRenderer = renderer;
+        chartRenderer.resetRenderer();
+        axesRenderer.resetRenderer();
+//        touchHandler.resetTouchHandler();
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         chartComputer.setContentRect(getWidth(), getHeight(), getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
-//        chartRenderer.onChartSizeChanged();
+        chartRenderer.onChartSizeChanged();
         axesRenderer.onChartSizeChanged();
     }
 
     @Override
     public void onChartDataChange() {
-//        this.chartRenderer.resetRenderer();
-        this.axesRenderer.resetRenderer();
+        chartRenderer.resetRenderer();
+        chartRenderer.onChartDataChanged();
+        axesRenderer.resetRenderer();
 //        this.touchHandler.resetTouchHandler();
         ViewCompat.postInvalidateOnAnimation(this);
     }
@@ -68,34 +86,40 @@ public abstract class AbstractChartView extends View implements Chart {
 
             //TODO 图表绘制
 
+            int clipRestoreCount = canvas.save();
+            canvas.clipRect(chartComputer.getContentRectMinusAllMargins());
+            chartRenderer.draw(canvas);
+            canvas.restoreToCount(clipRestoreCount);
+            chartRenderer.drawUnClipped(canvas);
+
             axesRenderer.drawForeground(canvas);
         } else {
             canvas.drawColor(Color.parseColor("#DFDFDF"));
         }
     }
 
-//    @Override
-//    public Viewport getMaxViewport() {
-//        return chartRenderer.getMaximumViewport();
-//    }
-//
-//    @Override
-//    public void setMaxViewport(Viewport maxViewport) {
-//        chartRenderer.setMaximumViewport(maxViewport);
-//        ViewCompat.postInvalidateOnAnimation(this);
-//    }
-//
-//    @Override
-//    public Viewport getCurrentViewport() {
-//        return chartRenderer.getCurrentViewport();
-//    }
-//
-//    @Override
-//    public void setCurrentViewport(Viewport targetViewport) {
-//        if (null != targetViewport) {
-//            chartRenderer.setCurrentViewport(targetViewport);
-//        }
-//        ViewCompat.postInvalidateOnAnimation(this);
-//    }
+    @Override
+    public Viewport getMaxViewport() {
+        return chartComputer.getMaxViewport();
+    }
+
+    @Override
+    public void setMaxViewport(Viewport maxViewport) {
+        chartComputer.setMaxViewport(maxViewport);
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    @Override
+    public Viewport getCurrentViewport() {
+        return chartComputer.getCurrentViewport();
+    }
+
+    @Override
+    public void setCurrentViewport(Viewport targetViewport) {
+        if (null != targetViewport) {
+            chartComputer.setCurrentViewport(targetViewport);
+        }
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
 
 }
