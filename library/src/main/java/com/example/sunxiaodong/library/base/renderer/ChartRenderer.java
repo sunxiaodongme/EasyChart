@@ -17,4 +17,6 @@ public interface ChartRenderer {
     void draw(Canvas canvas);
     void drawUnClipped(Canvas canvas);
 
+    void onChartViewportChanged();
+
 }

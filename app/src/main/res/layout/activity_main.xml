@@ -20,7 +20,7 @@
             android:layout_width="300dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:text="goPagerAdapter"
+            android:text="线形图表"
             android:textColor="#ffffff" />
 
     </LinearLayout>

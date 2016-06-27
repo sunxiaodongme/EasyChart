@@ -6,13 +6,14 @@ import android.util.AttributeSet;
 import com.example.sunxiaodong.library.base.model.ChartData;
 import com.example.sunxiaodong.library.base.view.AbstractChartView;
 import com.example.sunxiaodong.library.chart.line.model.LineChartData;
+import com.example.sunxiaodong.library.chart.line.model.provider.LineChartDataProvider;
 import com.example.sunxiaodong.library.chart.line.renderer.LineChartRenderer;
 
 /**
  * 线状图
  * Created by sunxiaodong on 16/6/25.
  */
-public class LineChartView extends AbstractChartView {
+public class LineChartView extends AbstractChartView implements LineChartDataProvider {
 
     protected LineChartData lineChartData;
 
@@ -32,7 +33,7 @@ public class LineChartView extends AbstractChartView {
     }
 
     private void init(Context context) {
-        setChartRenderer(new LineChartRenderer());
+        setChartRenderer(new LineChartRenderer(this, this));
     }
 
     @Override
@@ -40,10 +41,12 @@ public class LineChartView extends AbstractChartView {
         return lineChartData;
     }
 
+    @Override
     public LineChartData getLineChartData() {
         return lineChartData;
     }
 
+    @Override
     public void setLineChartData(LineChartData lineChartData) {
         this.lineChartData = lineChartData;
         super.onChartDataChange();

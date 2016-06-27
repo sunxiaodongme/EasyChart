@@ -67,6 +67,21 @@ public class ChartComputer {
     }
 
     /**
+     * 检测点是否在内容矩形中
+     * @param x 点横坐标
+     * @param y 点纵坐标
+     * @return
+     */
+    public boolean isInContentRect(float x, float y) {
+        if (x >= contentRectMinusAllMargins.left && x <= contentRectMinusAllMargins.right) {
+            if (y <= contentRectMinusAllMargins.bottom && y >= contentRectMinusAllMargins.top) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 生成去除“轴边距”和“轴内边距”的内容矩形
      * @param deltaLeft
      * @param deltaTop
