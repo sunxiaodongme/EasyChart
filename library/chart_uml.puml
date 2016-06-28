@@ -62,4 +62,40 @@ class AxisAutoValues
 
 AxisAutoValues --o AxesRenderer
 
+interface LineChartDataProvider
+
+LineChartDataProvider <|.. LineChartView
+
+class LineChartRenderer
+
+LineChartRenderer --o LineChartView
+
+abstract class AbstractChartRenderer
+
+AbstractChartRenderer <|-- LineChartRenderer
+
+interface ChartRenderer
+
+ChartRenderer <|.. AbstractChartRenderer
+
+LineChartDataProvider --o LineChartRenderer
+
+class Line
+
+Line --o LineChartData
+
+class PointValue
+
+PointValue --o Line
+
+class SimpleLineChartValueFormatter
+
+SimpleLineChartValueFormatter --o Line
+
+interface LineChartValueFormatter
+
+LineChartValueFormatter <|.. SimpleLineChartValueFormatter
+
+ValueFormatterHelper --o SimpleLineChartValueFormatter
+
 @enduml
