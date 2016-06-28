@@ -98,4 +98,16 @@ LineChartValueFormatter <|.. SimpleLineChartValueFormatter
 
 ValueFormatterHelper --o SimpleLineChartValueFormatter
 
+interface ChartDataAnimator
+
+class SimpleChartDataAnimatorV8
+
+ChartDataAnimator <|.. SimpleChartDataAnimatorV8
+
+class SimpleChartDataAnimatorV14
+
+ChartDataAnimator <|.. SimpleChartDataAnimatorV14
+
+ChartDataAnimator --o AbstractChartView
+
 @enduml
