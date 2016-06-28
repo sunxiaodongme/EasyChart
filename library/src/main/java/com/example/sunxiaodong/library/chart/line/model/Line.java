@@ -182,4 +182,16 @@ public class Line {
         return this;
     }
 
+    public void update(float scale) {
+        for (PointValue value : points) {
+            value.update(scale);
+        }
+    }
+
+    public void finish() {
+        for (PointValue value : points) {
+            value.finish();
+        }
+    }
+
 }

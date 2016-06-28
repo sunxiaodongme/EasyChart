@@ -1,6 +1,7 @@
 package com.example.sunxiaodong.library.base.view;
 
 import com.example.sunxiaodong.library.base.computer.ChartComputer;
+import com.example.sunxiaodong.library.base.listener.ChartAnimationListener;
 import com.example.sunxiaodong.library.base.model.ChartData;
 import com.example.sunxiaodong.library.base.model.Viewport;
 import com.example.sunxiaodong.library.base.renderer.ChartRenderer;
@@ -30,7 +31,23 @@ public interface Chart {
 
     /*------------------------------视窗----------------------------------end*/
 
+    /*------------------------------图表渲染器-----------------------------start*/
+
     ChartRenderer getChartRenderer();//获取图表渲染器
     void setChartRenderer(ChartRenderer renderer);//设置图表渲染器
+
+    /*------------------------------图表渲染器-----------------------------end*/
+
+    /*------------------------------图表动画-------------------------------start*/
+
+    void startAnimation();
+    void startAnimation(long duration);
+    void cancelAnimation();
+    void setChartAnimationListener(ChartAnimationListener chartAnimationListener);
+
+    void dataAnimationUpdate(float scale);//变换比例（范围：0 - 1）,持续更新图表
+    void dataAnimationFinished();//动画结束
+
+    /*------------------------------图表动画-------------------------------end*/
 
 }

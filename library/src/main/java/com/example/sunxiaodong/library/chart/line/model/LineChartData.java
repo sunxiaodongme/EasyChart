@@ -20,4 +20,18 @@ public class LineChartData extends AbstractChartData {
         this.lines = lines;
     }
 
+    @Override
+    public void update(float scale) {
+        for (Line line : lines) {
+            line.update(scale);
+        }
+    }
+
+    @Override
+    public void finish() {
+        for (Line line : lines) {
+            line.finish();
+        }
+    }
+
 }

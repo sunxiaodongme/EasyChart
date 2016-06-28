@@ -3,11 +3,16 @@ package com.example.sunxiaodong.library.base.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.sunxiaodong.library.base.animator.ChartDataAnimator;
+import com.example.sunxiaodong.library.base.animator.SimpleChartDataAnimatorV14;
+import com.example.sunxiaodong.library.base.animator.SimpleChartDataAnimatorV8;
 import com.example.sunxiaodong.library.base.computer.ChartComputer;
+import com.example.sunxiaodong.library.base.listener.ChartAnimationListener;
 import com.example.sunxiaodong.library.base.model.Viewport;
 import com.example.sunxiaodong.library.base.renderer.AxesRenderer;
 import com.example.sunxiaodong.library.base.renderer.ChartRenderer;
@@ -21,6 +26,7 @@ public abstract class AbstractChartView extends View implements Chart {
     protected ChartComputer chartComputer;
     protected AxesRenderer axesRenderer;
     protected ChartRenderer chartRenderer;
+    protected ChartDataAnimator chartDataAnimator;
 
     public AbstractChartView(Context context) {
         super(context);
@@ -40,6 +46,11 @@ public abstract class AbstractChartView extends View implements Chart {
     private void init(Context context) {
         chartComputer = new ChartComputer();
         axesRenderer = new AxesRenderer(context, this);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            chartDataAnimator = new SimpleChartDataAnimatorV8(this);
+        } else {
+            chartDataAnimator = new SimpleChartDataAnimatorV14(this);
+        }
     }
 
     @Override
@@ -119,6 +130,40 @@ public abstract class AbstractChartView extends View implements Chart {
         if (null != targetViewport) {
             chartComputer.setCurrentViewport(targetViewport);
         }
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    @Override
+    public void startAnimation() {
+        chartDataAnimator.startAnimation(Long.MIN_VALUE);
+    }
+
+    @Override
+    public void startAnimation(long duration) {
+        chartDataAnimator.startAnimation(duration);
+    }
+
+    @Override
+    public void cancelAnimation() {
+        chartDataAnimator.cancelAnimation();
+    }
+
+    @Override
+    public void setChartAnimationListener(ChartAnimationListener chartAnimationListener) {
+        chartDataAnimator.setChartAnimationListener(chartAnimationListener);
+    }
+
+    @Override
+    public void dataAnimationUpdate(float scale) {
+        getChartData().update(scale);
+        chartRenderer.onChartViewportChanged();
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    @Override
+    public void dataAnimationFinished() {
+        getChartData().finish();
+        chartRenderer.onChartViewportChanged();
         ViewCompat.postInvalidateOnAnimation(this);
     }
 

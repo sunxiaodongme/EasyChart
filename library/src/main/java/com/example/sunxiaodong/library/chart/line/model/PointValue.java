@@ -17,12 +17,23 @@ public class PointValue {
         DIAMOND//菱形
     }
 
+    /**
+     * 当前位置点
+     */
     private float x;
     private float y;
-    private float originX;
-    private float originY;
-    private float diffX;
-    private float diffY;
+    /**
+     * 原始点，用来记录动画起始点
+     */
+    private float originX;//原始点x坐标
+    private float originY;//原始点y坐标
+
+    /**
+     * 数据变化，变化间隔
+     */
+    private float diffX;//变化范围x距离
+    private float diffY;//变化范围y距离
+
     private char[] label;//点上的标签
 
     public PointValue() {

@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.sunxiaodong.library.base.model.Axis;
 import com.example.sunxiaodong.library.base.model.Viewport;
@@ -30,6 +32,22 @@ public class LineCharActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.line_chart_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.chart_anim:
+                chartAnim();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initView() {
         lineChartView = (LineChartView) findViewById(R.id.line_chart_view);
         initData();
@@ -39,14 +57,6 @@ public class LineCharActivity extends AppCompatActivity {
     private void initData() {
         generateValues();
         generateData();
-//        lineChartData = new LineChartData();
-//        Axis axisX = new Axis();
-//        Axis axisY = new Axis().setHasGridLines(true);
-//        axisX.setAxisName("Axis X");
-//        axisY.setAxisName("Axis Y");
-//        lineChartData.setAxisXBottom(axisX);
-//        lineChartData.setAxisYLeft(axisY);
-//        lineChartView.setLineChartData(lineChartData);
     }
 
     private int numberOfLines = 1;//线数量
@@ -110,6 +120,15 @@ public class LineCharActivity extends AppCompatActivity {
         viewport.right = 12;
         lineChartView.setMaxViewport(viewport);
         lineChartView.setCurrentViewport(viewport);
+    }
+
+    private void chartAnim() {
+        for (Line line : lineChartData.getLines()) {
+            for (PointValue value : line.getPoints()) {
+                value.setTarget(value.getX(), (float) Math.random() * 100);
+            }
+        }
+        lineChartView.startAnimation();
     }
 
 }

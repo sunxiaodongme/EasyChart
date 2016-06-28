@@ -14,4 +14,8 @@ public interface ChartData {
 
     Axis getAxisYRight();//获取右边Y轴
 
+    void update(float scale);//更新图表数据
+
+    void finish();//图表数据更细结束
+
 }
